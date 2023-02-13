@@ -1,17 +1,20 @@
-# Welcome to MkDocs
+---
+hide:
+    - side_toc
+---
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+# Documentos
 
-## Commands
+## Información oficial
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+Para encontrar la información oficial del proyecto de Bitcoin Ordinals puedes visitar los siguientes links:
 
-## Project layout
+* [Ordinal Theory Handbook](https://docs.ordinals.com/)
+* [Inscriptions explorer](https://ordinals.com/inscriptions)
+* [Bitcoin Improvement Proposal](https://github.com/casey/ord/blob/master/bip.mediawiki)
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+## Mis documentos
+
+Acá encontrarás los documentos que he escrito yo
+
+* [Cómo montar un nodo completo de Bitcoin](docs/fullnode.md)

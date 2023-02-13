@@ -13,4 +13,6 @@ theme:
     features:
         hide: side_toc
 
-copyright: hola
+markdown_extensions:
+  - toc:
+      permalink: " #"
