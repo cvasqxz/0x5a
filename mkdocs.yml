@@ -1,0 +1,13 @@
+site_name: 90.CL
+site_url: https://90.cl/
+
+nav:
+    - inicio: index.md
+    - documentos: docs.md
+    - sats: sats.md
+
+theme:
+    name: terminal
+    palette: dark
+    features:
+        hide: side_toc
