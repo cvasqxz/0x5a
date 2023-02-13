@@ -8,6 +8,9 @@ nav:
 
 theme:
     name: terminal
+    custom_dir: overrides
     palette: dark
     features:
         hide: side_toc
+
+copyright: hola
