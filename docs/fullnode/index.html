@@ -220,7 +220,7 @@
 </tr>
 </tbody>
 </table>
-<p>En linux debes crear una carpeta llamada <strong>.bitcoin</strong> en la carpeta home que contenga un archivo llamado <strong>bitcoin.conf</strong></p>
+<p>Por este motivo debemos crear una carpeta llamada <strong>.bitcoin</strong> en la carpeta home que contenga un archivo llamado <strong>bitcoin.conf</strong>, así podremos configurar el nodo antes de iniciar el proceso</p>
 <pre><code>$ cd /home/cvasqxz
 $ mkdir .bitcoin
 $ touch .bitcoin/bitcoin.conf
@@ -246,8 +246,8 @@ coinstatsindex=1
 
 datadir=/media/cvasqxz/disco_externo
 </code></pre>
-<p>Con esta configuración Bitcoin core se ejecutará como proceso, tendrá una conexión abierta para recibir ordenes de otro software (JSON-RPC), almacenará todo el historial de transacciones de Bitcoin en tu disco duro externo y podrás <a href="https://www.reddit.com/r/lightningnetwork/comments/mgaosp/running_a_full_node_configure_compact_filters_to/">ayudar a lightning network</a> con la creación de los filtros de block index, peer block y coin stats</p>
-<h2 id="sincronizando-bitcoin-core">Sincronizando Bitcoin Core<a class="headerlink" href="#sincronizando-bitcoin-core" title="Permanent link"> #</a></h2>
+<p>Con esta configuración el software de Bitcoin Core se ejecutará como proceso, tendrá una conexión abierta para recibir ordenes de otro software (JSON-RPC), almacenará todo el historial de transacciones de Bitcoin en tu disco duro externo y podrás <a href="https://www.reddit.com/r/lightningnetwork/comments/mgaosp/running_a_full_node_configure_compact_filters_to/">ayudar a lightning network</a> con la creación de los filtros de block index, peer block y coin stats</p>
+<h2 id="sincronizacion">Sincronización<a class="headerlink" href="#sincronizacion" title="Permanent link"> #</a></h2>
 <p>Ahora que tu nodo está configurado debes ejecutar el software de Bitcoin Core, para esto debemos descargar y descomprimir los archivos</p>
 <p>Puedes descargar Bitcoin Core desde la <a href="https://bitcoincore.org/en/download/">página oficial</a> del proyecto</p>
 <pre><code>$ cd /home/cvasqxz
@@ -308,15 +308,13 @@ $ less /media/cvasqxz/disco_externo/debug.log
 2023-02-13T20:17:15Z Config file arg: txindex=&quot;1&quot;
 :
 </code></pre>
-<p>Ahora debes esperar a que se sincronice tu nodo con la red de Bitcoin, esto puede tomar entre 8 y 24 horas en una computadora moderna y hasta un par de semanas si estas usando una Raspberry Pi</p>
+<p>Ahora iniciará el proceso inicial de descarga de bloques y debes esperar a que se sincronice tu nodo con la red de Bitcoin, esto puede tomar entre 8 y 24 horas en una computadora moderna y hasta un par de semanas si estas usando una Raspberry Pi</p>
 <h2 id="utilizando-tu-nodo">Utilizando tu nodo<a class="headerlink" href="#utilizando-tu-nodo" title="Permanent link"> #</a></h2>
 <p>Existen dos formas de comunicarte con el proceso de bitcoind, puedes usar el software <strong>bitcoin-cli</strong> o puedes comunicarte directamente al servidor JSON-RPC que levantó tu nodo</p>
-<h3 id="bitcoin-cli">bitcoin-cli<a class="headerlink" href="#bitcoin-cli" title="Permanent link"> #</a></h3>
 <p>Puedes usar bitcoin-cli con el comando <strong>getblockcount</strong> para ver cuantos bloques tiene el blockchain de Bitcoin y también puedes usar el comando <strong>help</strong> para ver todos los comandos disponibles</p>
 <pre><code>$ ./home/cvasqxz/bitcoin-24.0.1/bin/bitcoin-cli getblockcount
 776514
 </code></pre>
-<h3 id="json-rpc">JSON-RPC<a class="headerlink" href="#json-rpc" title="Permanent link"> #</a></h3>
 <p>La comunicación JSON-RPC la utilizaremos para comunicar nuestro nodo con el software de Bitcoin Ordinals, pero también se puede utilizar para utilizar el Lightning Network o para desarrollar software que utilice la red de Bitcoin</p>
 <p>Para acceder a la comunicación JSON-RPC existe un archivo llamado <strong>.cookie</strong> dentro de tu carpeta del Bitcoin core, tu nodo sólo aceptará mensajes que contengan las credenciales almacenadas en esa cookie</p>
 <pre><code>$ cat /home/cvasqxz/.bitcoin/.cookie 
@@ -327,6 +325,37 @@ __cookie__:f5e80f7210e6fe3bd249d1865bc6b470d07cb69187d337a4f4792ec8cfbf29ce
 {&quot;result&quot;:776514,&quot;error&quot;:null,&quot;id&quot;:&quot;hola&quot;}
 </code></pre>
 <p>Si las dos formas de comunicación (bitcoin-cli y JSON-RPC) entregan la misma respuesta se puede asumir que nuestro nodo está funcionando correctamente</p>
+<p>Para finalizar, si deseas detener el proceso de tu nodo puedes usar bitcoin-cli con el comando <strong>stop</strong> y luego espera hasta que aparezca el mensaje <strong>Shutdown: done</strong> en el archivo debug.log</p>
+<pre><code>$ ./home/cvasqxz/bitcoin-24.0.1/bin/bitcoin-cli stop
+Bitcoin Core stopping
+
+$ tail -f /home/cvasqxz/.bitcoin/debug.log
+2023-02-13T21:35:57Z addcon thread exit
+2023-02-13T21:35:57Z opencon thread exit
+2023-02-13T21:35:57Z net thread exit
+2023-02-13T21:35:57Z msghand thread exit
+2023-02-13T21:35:57Z DumpAnchors: Flush 2 outbound block-relay-only peer addresses to anchors.dat started
+2023-02-13T21:35:57Z DumpAnchors: Flush 2 outbound block-relay-only peer addresses to anchors.dat completed (0.00s)
+2023-02-13T21:35:57Z scheduler thread exit
+2023-02-13T21:35:57Z Writing 0 unbroadcast transactions to disk.
+2023-02-13T21:35:57Z Dumped mempool: 0.00187042s to copy, 0.0015866s to dump
+2023-02-13T21:35:58Z Shutdown: done
+</code></pre>
+<h2 id="consejos-finales">Consejos finales<a class="headerlink" href="#consejos-finales" title="Permanent link"> #</a></h2>
+<ol>
+<li>Es buena idea utilizar un disco duro externo</li>
+<li>No generes una wallet si no la necesitas</li>
+<li>Lee bien que hace cada comando del bitcoin-cli</li>
+<li>Deten tu nodo antes de apagar tu computadora</li>
+<li>Revisa el debug.log para ver el estado de tu nodo</li>
+</ol>
+<h2 id="lectura-adicional">Lectura adicional<a class="headerlink" href="#lectura-adicional" title="Permanent link"> #</a></h2>
+<ul>
+<li><a href="https://bitcoin.org/en/full-node">Running A Full Node</a> - Bitcoin Core</li>
+<li><a href="https://en.bitcoin.it/wiki/Running_Bitcoin">Running Bitcoin</a> - Bitcoin Wiki</li>
+<li><a href="https://developer.bitcoin.org/devguide/p2p_network.html">P2P Network</a> - Bitcoin Developer</li>
+<li><a href="https://www.lopp.net/bitcoin-information/full-node.html">Running a Bitcoin full node</a> - Jameson Lopp</li>
+</ul>
 </section>
 
 <section id="mkdocs-terminal-after-content">
