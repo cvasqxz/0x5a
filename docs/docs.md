@@ -18,3 +18,4 @@ Para encontrar la información oficial del proyecto de Bitcoin Ordinals puedes v
 Acá encontrarás los documentos que he escrito yo
 
 * [Cómo montar un nodo completo de Bitcoin](docs/fullnode.md)
+* [Minteando NFTs en Bitcoin](docs/mint.md)
