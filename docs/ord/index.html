@@ -9,7 +9,7 @@
      
      
     
-    <link rel="canonical" href="https://90.cl/docs/mint/"><link rel="icon" type="image/png" sizes="192x192" href="../../img/android-chrome-192x192.png" />
+    <link rel="canonical" href="https://90.cl/docs/ord/"><link rel="icon" type="image/png" sizes="192x192" href="../../img/android-chrome-192x192.png" />
 <link rel="icon" type="image/png" sizes="512x512" href="../../img/android-chrome-512x512.png" />
 <link rel="apple-touch-icon" sizes="180x180" href="../../img/apple-touch-icon.png" />
 <link rel="shortcut icon" type="image/png" sizes="48x48" href="../../img/favicon.ico" />
@@ -19,7 +19,7 @@
 
     
  
-<title>Minteando NFTs en Bitcoin - 90.CL</title>
+<title>Teoría ordinal de Bitcoin - 90.CL</title>
 
 
 <link href="../../css/fontawesome/css/fontawesome.min.css" rel="stylesheet">
@@ -183,10 +183,19 @@
     
 
 <section id="mkdocs-terminal-content">
-    <h1 id="minteando-nfts-en-bitcoin">Minteando NFTs en Bitcoin<a class="headerlink" href="#minteando-nfts-en-bitcoin" title="Permanent link"> #</a></h1>
-<p>Para este tutorial debes tener acceso a un nodo completo de Bitcoin, si no sabes como hacerlo puedes leer <a href="../fullnode/">este documento</a> en donde explico como crear tu propio nodo</p>
-<h2 id="que-es-un-nft">¿Qué es un NFT?<a class="headerlink" href="#que-es-un-nft" title="Permanent link"> #</a></h2>
-<p>NFT son las siglas de "Non-Fungible Token", que en terminos simples significa que es un objeto no divisible y que es posible diferenciarlo de otro objeto</p>
+    <h1 id="teoria-ordinal-de-bitcoin">Teoría ordinal de Bitcoin<a class="headerlink" href="#teoria-ordinal-de-bitcoin" title="Permanent link"> #</a></h1>
+<p>Cuando utilizamos números para describir una <strong>cantidad</strong> (10 gramos, 20 metros o 60 segundos) decimos que son números <a href="https://es.wikipedia.org/wiki/N%C3%BAmero_cardinal">cardinales</a>, y cuando representan a una <strong>posición</strong> (primero, quinto, último) se llaman números <a href="https://es.wikipedia.org/wiki/N%C3%BAmero_ordinal_(matem%C3%A1ticas)">ordinales</a></p>
+<p>Es posible que estas dos representaciones sean equivalentes si el "conjunto" en donde se encuentran los objetos se considera "<a href="https://es.wikipedia.org/wiki/Conjunto_bien_ordenado">bien ordenado</a>"</p>
+<p>Este documento explica la propuesta de <a href="https://twitter.com/rodarmor">Casey Rodarmor</a> de interpretar los saldos de Bitcoin de manera ordinal</p>
+<h2 id="bitcoin-ordinal">¿Bitcoin Ordinal?<a class="headerlink" href="#bitcoin-ordinal" title="Permanent link"> #</a></h2>
+<p><a href="https://blockchair.com/bitcoin/block/0">El primer bloque</a> del blockchain de Bitcoin generó 5,000,000,000 satoshis (50 BTC), que se pueden representar simultaneamente de la siguiente manera:</p>
+<ul>
+<li><strong>Cardinal</strong>: <em>Satoshi Nakamoto es dueño de 50 BTC</em></li>
+<li><strong>Ordinal</strong>: <em>Satoshi Nakamoto es dueño de un rango de satoshis que va desde el satoshi N°0 al satoshi N°4,999,999,999</em></li>
+</ul>
+<p>El protocolo de Bitcoin implementa parcialmente la idea de los números ordinales, cada bloque de Bitcoin tiene un <a href="https://blockchair.com/bitcoin/blocks">número que identifica su posición</a> en el blockchain, todas las transacciones dentro del bloque tienen una <strong>posición inmutable</strong> y todos los inputs y outputs de una transacción tienen un orden, pero los saldos sólo se representan con números cardinales</p>
+<h2 id="sat-ranges">Sat Ranges<a class="headerlink" href="#sat-ranges" title="Permanent link"> #</a></h2>
+<p>Utilizar rangos de satoshis (Sat Ranges) nos permite saber exactamente qué satoshis tenemos en nuestra wallet y en qué bloque fueron generados, es posible decir que un satoshi de la wallet de <a href="https://edition.cnn.com/2020/11/06/business/bitcoin-seized-silk-road-ulbricht/index.html">Silk Road</a> es distinto a un satoshi de <a href="https://www.reuters.com/world/us/us-charges-two-russians-hack-mt-gox-crypto-exchange-justice-dept-2023-06-09/">Mt.Gox</a></p>
 </section>
 
 <section id="mkdocs-terminal-after-content">
