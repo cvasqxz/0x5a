@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>90.cl</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center; 
+     height: 100vh;
+      background-color: #111;
+      padding: 0px;
+      margin: 0px;
+    }
+
+  </style>
+</head>
+<body>
+  <script>
+    let cols = 32;
+    let rows = 32;
+    let scale;
+
+    function setup() {
+      if (windowHeight < windowWidth) {
+        scale = Math.floor(windowHeight / rows) - 1; 
+      } else {
+        scale = Math.floor(windowWidth / cols) - 1;
+      }
+      createCanvas(cols * scale, rows * scale);
+    }
+
+    function draw() {
+      let img = createImage(cols, rows);
+      img.loadPixels();
+      for (let x = 0; x < cols; x++) {
+        for (let y = 0; y < rows; y++) {
+          let colorValue = plasma(x, y, frameCount);
+          let index = (x + y * cols) * 4;
+          img.pixels[index] = colorValue.r;
+          img.pixels[index + 1] = colorValue.g;
+          img.pixels[index + 2] = colorValue.b;
+          img.pixels[index + 3] = 255;
+        }
+      }
+      img.updatePixels();
+      image(img, 0, 0, cols * scale, rows * scale);
+    }
+
+    function plasma(x, y, t) {
+      let value = sin(x * 0.1 + t * 0.05) +
+                  cos(y * 0.1 + t * 0.07) +
+                  sin((x + y) * 0.1 + t * 0.04) +
+                  cos(dist(x, y, cols / 2, rows / 2) * 0.1 + t * 0.03);
+      value = map(value, -4, 4, 100, 200);
+      return colorFromValue(value);
+    }
+
+    function colorFromValue(value) {
+      let r = map(sin(value * 0.1), -1, 1, 50, 200);
+      let g = map(sin(value * 0.1 + PI / 3), -1, 1, 50, 200);
+      let b = map(sin(value * 0.1 + 2 * PI / 3), -1, 1, 50, 200);
+      return { r: r, g: g, b: b };
+    }
+  </script>
+</body>
+</html>
