@@ -3,17 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>90.cl</title>
+  <title>90.CL</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
   <style>
     body {
       display: flex;
       justify-content: center;
       align-items: center; 
-     height: 100vh;
+      height: 100vh;
       background-color: #111;
       padding: 0px;
       margin: 0px;
+    }
+
+    canvas {
+      image-rendering: pixelated;
     }
 
   </style>
@@ -24,12 +28,17 @@
     let rows = 32;
     let scale;
 
-    function setup() {
+    function setScale() {
       if (windowHeight < windowWidth) {
         scale = Math.floor(windowHeight / rows) - 1; 
       } else {
         scale = Math.floor(windowWidth / cols) - 1;
       }
+    }
+
+    function setup() {
+      setScale();
+      noSmooth();
       createCanvas(cols * scale, rows * scale);
     }
 
@@ -51,18 +60,18 @@
     }
 
     function plasma(x, y, t) {
-      let value = sin(x * 0.1 + t * 0.05) +
-                  cos(y * 0.1 + t * 0.07) +
-                  sin((x + y) * 0.1 + t * 0.04) +
-                  cos(dist(x, y, cols / 2, rows / 2) * 0.1 + t * 0.03);
+      let value = sin(x * 0.05 + t * 0.05) +
+                  cos(y * 0.05 + t * 0.07) +
+                  sin((x + y) * 0.05 + t * 0.04) +
+                  cos(dist(x, y, cols / 2, rows / 2) * 0.05 + t * 0.03);
       value = map(value, -4, 4, 100, 200);
       return colorFromValue(value);
     }
 
     function colorFromValue(value) {
-      let r = map(sin(value * 0.1), -1, 1, 50, 200);
-      let g = map(sin(value * 0.1 + PI / 3), -1, 1, 50, 200);
-      let b = map(sin(value * 0.1 + 2 * PI / 3), -1, 1, 50, 200);
+      let r = map(sin(value * 0.05), -1, 1, 50, 200);
+      let g = map(sin(value * 0.05 + PI / 3), -1, 1, 50, 200);
+      let b = map(sin(value * 0.05 + 2 * PI / 3), -1, 1, 50, 200);
       return { r: r, g: g, b: b };
     }
   </script>
